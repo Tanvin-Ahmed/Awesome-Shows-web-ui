@@ -38,7 +38,9 @@ const FormModal = ({ setOpenModal, openModal, selectedShow }) => {
 		}
 	}, []);
 
-	const handlePerches = () => {
+	const handlePerches = e => {
+		e.preventDefault();
+
 		setLoading(true);
 		setError("");
 		setSuccess("");
@@ -49,7 +51,7 @@ const FormModal = ({ setOpenModal, openModal, selectedShow }) => {
 		setTimeout(() => {
 			setSuccess("");
 			closeModal();
-		}, 500);
+		}, 700);
 	};
 	return (
 		<Modal
@@ -70,7 +72,10 @@ const FormModal = ({ setOpenModal, openModal, selectedShow }) => {
 					style={{ width: "30%" }}
 				/>
 			</div>
-			<Form className="d-flex justify-content-center align-items-center flex-column">
+			<Form
+				onSubmit={handlePerches}
+				className="d-flex justify-content-center align-items-center flex-column"
+			>
 				<Form.Label>
 					Show Name
 					<Form.Control type="text" value={selectedShow.show.name} readOnly />
@@ -98,6 +103,7 @@ const FormModal = ({ setOpenModal, openModal, selectedShow }) => {
 						placeholder="User Name"
 						value={name}
 						onChange={e => setName(e.target.value)}
+						required
 					/>
 				</Form.Label>
 				<Form.Label>
@@ -107,10 +113,11 @@ const FormModal = ({ setOpenModal, openModal, selectedShow }) => {
 						placeholder="Email"
 						value={email}
 						onChange={e => setEmail(e.target.value)}
+						required
 					/>
 				</Form.Label>
 
-				<Button onClick={handlePerches}>Perches</Button>
+				<Button type="submit">Perches</Button>
 			</Form>
 			<div className="text-center">
 				{loading ? (
